@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:maenaa/models/surah_models.dart';
 
-class homeContoller{
+class homeController{
   Future<List<Surah>> getAllSurah() async {
     Uri url = Uri.parse("https://api.quran.gading.dev/surah");
     var res = await http.get(url);

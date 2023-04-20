@@ -26,7 +26,7 @@ class DetailSurah {
     Name name;
     Revelation revelation;
     DetailSurahTafsir tafsir;
-    PreBismillah preBismillah;
+    PreBismillah? preBismillah;
     List<Verse> verses;
 
     factory DetailSurah.fromJson(Map<String, dynamic> json) => DetailSurah(
@@ -36,7 +36,7 @@ class DetailSurah {
         name: Name.fromJson(json["name"]),
         revelation: Revelation.fromJson(json["revelation"]),
         tafsir: DetailSurahTafsir.fromJson(json["tafsir"]),
-        preBismillah: PreBismillah.fromJson(json["preBismillah"]),
+        preBismillah: json["preBismillah"] == null ? null : PreBismillah.fromJson(json["preBismillah"]),
         verses: List<Verse>.from(json["verses"].map((x) => Verse.fromJson(x))),
     );
 
@@ -47,7 +47,7 @@ class DetailSurah {
         "name": name.toJson(),
         "revelation": revelation.toJson(),
         "tafsir": tafsir.toJson(),
-        "preBismillah": preBismillah.toJson(),
+        "preBismillah": preBismillah?.toJson(),
         "verses": List<dynamic>.from(verses.map((x) => x.toJson())),
     };
 }
@@ -112,9 +112,9 @@ class PreBismillah {
     Audio audio;
 
     factory PreBismillah.fromJson(Map<String, dynamic> json) => PreBismillah(
-        text: Text.fromJson(json["text"]),
-        translation: Translation.fromJson(json["translation"]),
-        audio: Audio.fromJson(json["audio"]),
+        text: Text?.fromJson(json["text"]),
+        translation: Translation?.fromJson(json["translation"]),
+        audio: Audio?.fromJson(json["audio"]),
     );
 
     Map<String, dynamic> toJson() => {

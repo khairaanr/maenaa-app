@@ -33,7 +33,7 @@ class _homePageState extends State<homePage> {
         elevation: 0,
       ),
       body: FutureBuilder<List<Surah>>(
-          future: homeContoller().getAllSurah(),
+          future: homeController().getAllSurah(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -90,7 +90,8 @@ class _homePageState extends State<homePage> {
                                 arguments: surah);
                           },
                           leading: CircleAvatar(
-                            backgroundColor: Color(0xFFF3F3F3),
+                            backgroundImage: AssetImage("assets/number.png"),
+                            
                             child: Text(
                               "${surah.number}",
                               style: TextStyle(
