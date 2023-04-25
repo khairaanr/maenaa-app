@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:maenaa/main.dart';
 
 class landingPage extends StatelessWidget {
   const landingPage({super.key});
@@ -16,7 +17,7 @@ class landingPage extends StatelessWidget {
           return Center(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/home');
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyDefault(title: 'maenaa',)));
               },
               child: const Text('Get started'),
             ),
