@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:maenaa/models/detailSurah_model.dart' as detail;
+import 'package:maenaa/models/detail_surah_model.dart' as detail;
 import 'package:maenaa/models/surah_model.dart';
-import 'package:maenaa/controllers/detailPageController.dart';
+import 'package:maenaa/controllers/detail_page_controller.dart';
+import 'package:maenaa/utils/myColors.dart';
 
 class detailPage extends StatefulWidget {
   const detailPage({super.key});
@@ -19,21 +20,21 @@ class _detailPageState extends State<detailPage> {
   Widget build(BuildContext context) {
     final surah = ModalRoute.of(context)!.settings.arguments as Surah;
     return Scaffold(
-      backgroundColor: Color(0xFFF3F3F3),
+      backgroundColor: appColors.background,
       appBar: AppBar(
         toolbarHeight: 72,
         title: Text(
           "Q.S ${surah.name.transliteration.id}",
           style: TextStyle(fontWeight: FontWeight.w400),
         ),
-        backgroundColor: Color(0xFF5A95B2),
+        backgroundColor: appColors.biru,
         centerTitle: true,
       ),
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
           Card(
-            color: bg,
+            color: appColors.background,
             elevation: 0,
             child: Column(
               children: [
@@ -78,14 +79,14 @@ class _detailPageState extends State<detailPage> {
                     showBismillah(surah.number, snapshot.data?.preBismillah),
                     ListView.builder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: surah.numberOfVerses,
                       itemBuilder: (context, index) {
                         detail.Verse? ayat = snapshot.data?.verses[index];
                         return Column(
                           children: [
                             Card(
-                              color: bg,
+                              color: appColors.background,
                               elevation: 0,
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
@@ -102,7 +103,7 @@ class _detailPageState extends State<detailPage> {
                                             "${index + 1}",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w400,
-                                                color: Color(0xFF9D968F)),
+                                                color: appColors.coklatTua),
                                           ),
                                         ),
                                         Column(
@@ -114,7 +115,7 @@ class _detailPageState extends State<detailPage> {
                                                 style: TextStyle(
                                                     fontSize: 22,
                                                     fontWeight: FontWeight.bold,
-                                                    color: hitam),
+                                                    color: appColors.hitam),
                                                 textAlign: TextAlign.right,
                                               ),
                                             ),
@@ -131,7 +132,7 @@ class _detailPageState extends State<detailPage> {
                                                           FontStyle.italic,
                                                       fontWeight:
                                                           FontWeight.w500,
-                                                      color: hitam),
+                                                      color: appColors.hitam),
                                                   textAlign: TextAlign.right,
                                                 )),
                                             SizedBox(
@@ -143,7 +144,7 @@ class _detailPageState extends State<detailPage> {
                                                   "${ayat.translation.id}",
                                                   style: TextStyle(
                                                       fontSize: 12,
-                                                      color: Color(0xFF7F8184),
+                                                      color: appColors.abu,
                                                       fontWeight:
                                                           FontWeight.w500),
                                                   textAlign: TextAlign.left,
@@ -159,7 +160,7 @@ class _detailPageState extends State<detailPage> {
                                             onPressed: () {},
                                             icon: Icon(
                                               Icons.bookmark_add_outlined,
-                                              color: hitam,
+                                              color: appColors.hitam,
                                             ))
                                       ],
                                     ),
@@ -224,6 +225,3 @@ Widget showBismillah(int index, detail.PreBismillah? bismillah) {
     return Container();
   }
 }
-
-final Color hitam = Color(0xFF1D1D1D);
-final Color bg = Color(0xFFF3F3F3);

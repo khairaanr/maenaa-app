@@ -3,12 +3,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:maenaa/controllers/homePageController.dart';
-import 'package:maenaa/views/bookmarksPage.dart';
+import 'package:maenaa/controllers/home_page_controller.dart';
+import 'package:maenaa/utils/myColors.dart';
 
 import '../models/surah_model.dart';
-
-final Color hitam = Color(0xFF1D1D1D);
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -21,9 +19,9 @@ class _homePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFF3F3F3),
+        backgroundColor: appColors.background,
         appBar: AppBar(
-          backgroundColor: Color(0xFFF3F3F3),
+          backgroundColor: appColors.background,
           title: Align(
             alignment: Alignment.centerRight,
             child: Image.asset(
@@ -60,7 +58,7 @@ class _homePageState extends State<homePage> {
                             style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w700,
-                                color: hitam),
+                                color: appColors.hitam),
                           ),
                           alignment: Alignment.centerLeft,
                         ),
@@ -73,7 +71,7 @@ class _homePageState extends State<homePage> {
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                color: hitam),
+                                color: appColors.hitam),
                           ),
                           alignment: Alignment.centerLeft,
                         )
@@ -96,21 +94,21 @@ class _homePageState extends State<homePage> {
                                 "${surah.number}",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    color: Color(0xFF9D968F)),
+                                    color: appColors.coklatTua),
                               ),
                             ),
                             title: Text(
                               "${surah.name.transliteration.id}",
                               style: TextStyle(
                                   fontSize: 14,
-                                  color: hitam,
+                                  color: appColors.hitam,
                                   fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text(
                               "${surah.numberOfVerses} Ayat | ${surah.revelation.id}",
                               style: TextStyle(
                                   fontSize: 12,
-                                  color: Color(0xFF9D968F),
+                                  color: appColors.coklatTua,
                                   fontWeight: FontWeight.w400),
                             ),
                             trailing: Text(
@@ -123,26 +121,7 @@ class _homePageState extends State<homePage> {
                 ],
               );
             }),
-        bottomNavigationBar: Container(
-          child: SafeArea(
-            child: GNav(
-              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 64),
-              activeColor: Color(0xFF5A95B2),
-              backgroundColor: Color(0xFFECE5DD),
-              color: Color(0xFF9D968F),
-              gap: 8,
-              tabs: [
-                GButton(
-                  icon: Icons.book,
-                  text: "Al-Qur'an",
-                ),
-                GButton(
-                  icon: Icons.bookmark,
-                  text: "Bookmarks",
-                )
-              ],
-            ),
-          ),
-        ));
+          
+        );
   }
 }
