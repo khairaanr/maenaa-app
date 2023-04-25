@@ -57,7 +57,7 @@ class _MyDefaultState extends State<MyDefault> {
             child: GNav(
               padding: EdgeInsets.symmetric(vertical: 24, horizontal: 64),
               activeColor: appColors.biru,
-              backgroundColor: appColors.background,
+              backgroundColor: appColors.coklat,
               color: appColors.coklatTua,
               gap: 8,
               tabs: [

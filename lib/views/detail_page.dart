@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:maenaa/models/detail_surah_model.dart' as detail;
 import 'package:maenaa/models/surah_model.dart';
 import 'package:maenaa/controllers/detail_page_controller.dart';
@@ -157,7 +159,20 @@ class _detailPageState extends State<detailPage> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () async {
+                                              var success =
+                                                  await detailController()
+                                                      .addBookmark(
+                                                          snapshot.data!,
+                                                          ayat,
+                                                          index);
+
+                                              print(success);
+                                              final snackBar =
+                                                  showBookmarkDialog(success);
+                                              ScaffoldMessenger.of(context)
+                                                ..showSnackBar(snackBar);
+                                            },
                                             icon: Icon(
                                               Icons.bookmark_add_outlined,
                                               color: appColors.hitam,
@@ -187,7 +202,7 @@ Widget dividerColumn() {
     width: 350,
     height: 1,
     decoration: BoxDecoration(
-        color: Color(0xFF9D968F),
+        color: appColors.coklatTua,
         borderRadius: BorderRadius.all(Radius.circular(1))),
   );
 }
@@ -212,7 +227,7 @@ Widget showBismillah(int index, detail.PreBismillah? bismillah) {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 12,
-                    color: Color(0xFF7F8184),
+                    color: appColors.abu,
                     fontWeight: FontWeight.w500)),
             SizedBox(
               height: 16,
@@ -223,5 +238,43 @@ Widget showBismillah(int index, detail.PreBismillah? bismillah) {
     );
   } else {
     return Container();
+  }
+}
+
+SnackBar showBookmarkDialog(bool success) {
+  if (success == true) {
+    return SnackBar(
+      content: Container(
+        height: 90,
+        decoration: BoxDecoration(
+            color: appColors.biru,
+            borderRadius: BorderRadius.circular(10)),
+        child: Center(
+            child: Text(
+          "Bookmark berhasil ditambahkan.",
+          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16),
+        )),
+      ),
+      behavior: SnackBarBehavior.floating,
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+    );
+  } else {
+    return SnackBar(
+      content: Container(
+        height: 90,
+        decoration: BoxDecoration(
+            color: Color(0xFFEE5858),
+            borderRadius: BorderRadius.circular(10)),
+        child: Center(
+            child: Text(
+          "Bookmark sudah ada.",
+          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16),
+        )),
+      ),
+      behavior: SnackBarBehavior.floating,
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+    );
   }
 }
