@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:maenaa/models/surah_models.dart';
+import 'package:maenaa/models/surah_model.dart';
 
 class homeController{
   Future<List<Surah>> getAllSurah() async {

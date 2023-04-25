@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:maenaa/models/detailSurah_model.dart' as detail;
-import 'package:maenaa/models/surah_models.dart';
+import 'package:maenaa/models/surah_model.dart';
 import 'package:maenaa/controllers/detailPageController.dart';
 
 class detailPage extends StatefulWidget {
@@ -49,7 +49,9 @@ class _detailPageState extends State<detailPage> {
                     Text(
                       "Surah ke-${surah.number}     |     ${surah.numberOfVerses} Ayat     |     ${surah.revelation.id}",
                     ),
-                    SizedBox(height: 16,)
+                    SizedBox(
+                      height: 16,
+                    )
                   ],
                 )
               ],
@@ -73,7 +75,7 @@ class _detailPageState extends State<detailPage> {
 
                 return Column(
                   children: [
-                    Text("${snapshot.data!.preBismillah?.text.arab}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+                    showBismillah(surah.number, snapshot.data?.preBismillah),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -82,7 +84,6 @@ class _detailPageState extends State<detailPage> {
                         detail.Verse? ayat = snapshot.data?.verses[index];
                         return Column(
                           children: [
-                            
                             Card(
                               color: bg,
                               elevation: 0,
@@ -95,7 +96,8 @@ class _detailPageState extends State<detailPage> {
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         CircleAvatar(
-                                          backgroundImage: AssetImage("assets/number.png"),
+                                          backgroundImage:
+                                              AssetImage("assets/number.png"),
                                           child: Text(
                                             "${index + 1}",
                                             style: TextStyle(
@@ -125,8 +127,10 @@ class _detailPageState extends State<detailPage> {
                                                   "${ayat.text.transliteration.en}",
                                                   style: TextStyle(
                                                       fontSize: 14,
-                                                      fontStyle: FontStyle.italic,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                       color: hitam),
                                                   textAlign: TextAlign.right,
                                                 )),
@@ -138,7 +142,10 @@ class _detailPageState extends State<detailPage> {
                                                 child: Text(
                                                   "${ayat.translation.id}",
                                                   style: TextStyle(
-                                                      fontSize: 12, color: Color(0xFF7F8184), fontWeight: FontWeight.w500),
+                                                      fontSize: 12,
+                                                      color: Color(0xFF7F8184),
+                                                      fontWeight:
+                                                          FontWeight.w500),
                                                   textAlign: TextAlign.left,
                                                 )),
                                           ],
@@ -182,6 +189,40 @@ Widget dividerColumn() {
         color: Color(0xFF9D968F),
         borderRadius: BorderRadius.all(Radius.circular(1))),
   );
+}
+
+Widget showBismillah(int index, detail.PreBismillah? bismillah) {
+  if (index != 1) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12),
+      child: Center(
+        child: Column(
+          children: [
+            Text("${bismillah?.text.arab}",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+            SizedBox(
+              height: 12,
+            ),
+            Text(
+              "${bismillah?.text.transliteration.en}",
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
+            Text("${bismillah?.translation.id}",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF7F8184),
+                    fontWeight: FontWeight.w500)),
+            SizedBox(
+              height: 16,
+            ),
+          ],
+        ),
+      ),
+    );
+  } else {
+    return Container();
+  }
 }
 
 final Color hitam = Color(0xFF1D1D1D);
