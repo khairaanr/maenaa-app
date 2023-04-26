@@ -165,7 +165,8 @@ class _detailPageState extends State<detailPage> {
                                                       .addBookmark(
                                                           snapshot.data!,
                                                           ayat,
-                                                          index);
+                                                          index,
+                                                          );
 
                                               print(success);
                                               final snackBar =
