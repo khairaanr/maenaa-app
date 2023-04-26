@@ -36,7 +36,10 @@ class detailController {
       await db.insert("bookmarks", {
         "surah": "${surah.name.transliteration.id}",
         "ayat": ayat.number.inSurah,
-        "index_ayat": index
+        "index_ayat": index,
+        "arab": ayat.text.arab,
+        "transliteration": ayat.text.transliteration.en,
+        "arti": ayat.translation.id
       });
 
       var data = await db.query('bookmarks');

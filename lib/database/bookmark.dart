@@ -37,7 +37,7 @@ class DatabaseManager {
               index_ayat INTEGER NOT NULL,
               arab TEXT NOT NULL,
               transliteration TEXT NOT NULL,
-              arti TEXT NOT NULL,
+              arti TEXT NOT NULL
             )
           '''
         );
