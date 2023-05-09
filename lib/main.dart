@@ -49,36 +49,33 @@ class _MyDefaultState extends State<MyDefault> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex)
-      ),
-      bottomNavigationBar: Container(
-          child: SafeArea(
-            child: GNav(
-              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 64),
-              activeColor: appColors.biru,
-              backgroundColor: appColors.coklat,
-              color: appColors.coklatTua,
-              gap: 8,
-              tabs: [
-                GButton(
-                  icon: Icons.book,
-                  text: "Al-Qur'an",
-                ),
-                GButton(
-                  icon: Icons.bookmark,
-                  text: "Bookmarks",
-                )
-              ],
-              selectedIndex: _selectedIndex,
-              onTabChange: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
+      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+      bottomNavigationBar: 
+      SafeArea(
+        child: GNav(
+          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 64),
+          activeColor: appColors.biru,
+          backgroundColor: appColors.coklat,
+          color: appColors.coklatTua,
+          gap: 8,
+          tabs: [
+            GButton(
+              icon: Icons.book,
+              text: "Al-Qur'an",
             ),
-          ),
+            GButton(
+              icon: Icons.bookmark,
+              text: "Bookmarks",
+            )
+          ],
+          selectedIndex: _selectedIndex,
+          onTabChange: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
         ),
+      ),
     );
   }
 }

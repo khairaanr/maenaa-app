@@ -64,23 +64,29 @@ class _bookmarksPageState extends State<bookmarksPage> {
                         width: 280,
                         child: Column(
                           children: [
-                            Text(
-                              "${data['arab']}",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: appColors.hitam),
-                              textAlign: TextAlign.right,
+                            Container(
+                              width: 280,
+                              child: Text(
+                                "${data['arab']}",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: appColors.hitam),
+                                textAlign: TextAlign.right,
+                              ),
                             ),
                             SizedBox(height: 8,),
-                            Text(
-                              "${data['transliteration']}",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w500,
-                                  color: appColors.hitam),
-                              textAlign: TextAlign.right,
+                            Container(
+                              width: 280,
+                              child: Text(
+                                "${data['transliteration']}",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w500,
+                                    color: appColors.hitam),
+                                textAlign: TextAlign.right,
+                              ),
                             ),
                             SizedBox(height: 8,),
                             Text(
