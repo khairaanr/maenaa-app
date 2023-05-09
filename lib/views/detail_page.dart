@@ -78,7 +78,40 @@ class _detailPageState extends State<detailPage> {
 
                 return Column(
                   children: [
-                    showBismillah(surah.number, snapshot.data?.preBismillah),
+                    snapshot.data?.preBismillah == null
+                        ? Container()
+                        : Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Text(
+                                      "${snapshot.data!.preBismillah!.text.arab}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 24)),
+                                  SizedBox(
+                                    height: 12,
+                                  ),
+                                  Text(
+                                    "${snapshot.data!.preBismillah!.text.transliteration.en}",
+                                    style:
+                                        TextStyle(fontStyle: FontStyle.italic),
+                                  ),
+                                  Text(
+                                      "${snapshot.data!.preBismillah!.translation.id}",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: appColors.abu,
+                                          fontWeight: FontWeight.w500)),
+                                  SizedBox(
+                                    height: 16,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -163,10 +196,10 @@ class _detailPageState extends State<detailPage> {
                                               var success =
                                                   await detailController()
                                                       .addBookmark(
-                                                          snapshot.data!,
-                                                          ayat,
-                                                          index,
-                                                          );
+                                                snapshot.data!,
+                                                ayat,
+                                                index,
+                                              );
 
                                               print(success);
                                               final snackBar =
@@ -174,10 +207,18 @@ class _detailPageState extends State<detailPage> {
                                               ScaffoldMessenger.of(context)
                                                 ..showSnackBar(snackBar);
                                             },
-                                            icon: Icon(
-                                              Icons.bookmark_add_outlined,
-                                              color: appColors.hitam,
-                                            ))
+                                            icon:  
+                                            detailController()
+                                                        .isInBookmarks(snapshot.data!, ayat) ==
+                                                    true
+                                                ? Icon(
+                                                    Icons.bookmark_added,
+                                                    color: appColors.hitam,
+                                                  )
+                                                : Icon(
+                                                    Icons.bookmark_add_outlined,
+                                                    color: appColors.hitam,
+                                                  ))
                                       ],
                                     ),
                                     dividerColumn()
@@ -208,52 +249,18 @@ Widget dividerColumn() {
   );
 }
 
-Widget showBismillah(int index, detail.PreBismillah? bismillah) {
-  if (index != 1) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12),
-      child: Center(
-        child: Column(
-          children: [
-            Text("${bismillah?.text.arab}",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-            SizedBox(
-              height: 12,
-            ),
-            Text(
-              "${bismillah?.text.transliteration.en}",
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-            Text("${bismillah?.translation.id}",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 12,
-                    color: appColors.abu,
-                    fontWeight: FontWeight.w500)),
-            SizedBox(
-              height: 16,
-            ),
-          ],
-        ),
-      ),
-    );
-  } else {
-    return Container();
-  }
-}
-
 SnackBar showBookmarkDialog(bool success) {
   if (success == true) {
     return SnackBar(
       content: Container(
         height: 90,
         decoration: BoxDecoration(
-            color: appColors.biru,
-            borderRadius: BorderRadius.circular(10)),
+            color: appColors.biru, borderRadius: BorderRadius.circular(10)),
         child: Center(
             child: Text(
           "Bookmark berhasil ditambahkan.",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16),
+          style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16),
         )),
       ),
       behavior: SnackBarBehavior.floating,
@@ -265,12 +272,12 @@ SnackBar showBookmarkDialog(bool success) {
       content: Container(
         height: 90,
         decoration: BoxDecoration(
-            color: Color(0xFFEE5858),
-            borderRadius: BorderRadius.circular(10)),
+            color: Color(0xFFEE5858), borderRadius: BorderRadius.circular(10)),
         child: Center(
             child: Text(
           "Bookmark sudah ada.",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16),
+          style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16),
         )),
       ),
       behavior: SnackBarBehavior.floating,

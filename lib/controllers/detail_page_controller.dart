@@ -1,13 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:get/get.dart';
 import 'package:maenaa/database/bookmark.dart';
 import 'package:maenaa/models/detail_surah_model.dart';
-import 'package:maenaa/models/surah_model.dart';
 import 'package:sqflite/sqflite.dart';
 
-class detailController {
+class detailController{
   DatabaseManager database = DatabaseManager.instance;
 
   Future<DetailSurah> getDetailSurah(String id) async {
@@ -50,5 +49,20 @@ class detailController {
     } else {
       return false;
     }
+  }
+
+  Future<bool> isInBookmarks(DetailSurah surah, Verse ayat) async {
+    Database db = await database.db;
+    bool isInBookmark = false;
+
+    List checkData = await db.query('bookmarks',
+        where:
+            'surah = "${surah.name.transliteration.id}" AND ayat = ${ayat.number.inSurah}');
+
+    if (checkData.isNotEmpty) {
+      isInBookmark = true;
+    }
+
+    return isInBookmark;
   }
 }
